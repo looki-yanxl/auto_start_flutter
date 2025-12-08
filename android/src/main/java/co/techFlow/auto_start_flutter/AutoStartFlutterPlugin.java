@@ -106,7 +106,8 @@ public class AutoStartFlutterPlugin implements FlutterPlugin, MethodCallHandler 
       } else if ("letv".equalsIgnoreCase(manufacturer)) {
         intent.setComponent(new ComponentName("com.letv.android.letvsafe", "com.letv.android.letvsafe.AutobootManageActivity"));
       } else if ("honor".equalsIgnoreCase(manufacturer)) {
-        intent.setComponent(new ComponentName("com.huawei.systemmanager", "com.huawei.systemmanager.optimize.process.ProtectActivity"));
+        intent.setComponent(new ComponentName("com.hihonor.systemmanager", "com.hihonor.systemmanager.appcontrol.activity.StartupAppControlActivity"));
+//        intent.setComponent(new ComponentName("com.huawei.systemmanager", "com.huawei.systemmanager.optimize.process.ProtectActivity"));
       } else if ("huawei".equalsIgnoreCase(manufacturer)) {
         intent.setComponent(new ComponentName("com.huawei.systemmanager", "com.huawei.systemmanager.startupmgr.ui.StartupNormalAppListActivity"));
       }else if ("samsung".equalsIgnoreCase(manufacturer)) {
@@ -119,7 +120,7 @@ public class AutoStartFlutterPlugin implements FlutterPlugin, MethodCallHandler 
         intent.setComponent(new ComponentName("com.asus.mobilemanager", "com.asus.mobilemanager.autostart.AutoStartActivy"));
       } else if ("realme".equalsIgnoreCase(manufacturer)) {
         intent.setAction(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
-    }
+      }
 
       List<ResolveInfo> list = context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
       if  (list.size() > 0) {
