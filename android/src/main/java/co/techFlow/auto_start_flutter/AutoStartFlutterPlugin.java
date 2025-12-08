@@ -17,6 +17,7 @@ import android.content.ComponentName;
 import java.util.*;
 import android.content.pm.ResolveInfo;
 import android.util.Log;
+import android.widget.Toast;
 
 /** AutoStartFlutterPlugin */
 public class AutoStartFlutterPlugin implements FlutterPlugin, MethodCallHandler {
@@ -124,9 +125,12 @@ public class AutoStartFlutterPlugin implements FlutterPlugin, MethodCallHandler 
 
       List<ResolveInfo> list = context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
       if  (list.size() > 0) {
+        Toast.makeText(context, "找到了component", Toast.LENGTH_SHORT).show();
         context.startActivity(intent);
       }
     } catch (Exception e) {
+      Toast.makeText(context, String.valueOf(e), Toast.LENGTH_SHORT).show();
+
       Log.e("exc" , String.valueOf(e));
     }
   }
