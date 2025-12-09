@@ -42,7 +42,7 @@ public class AutoStartFlutterPlugin implements FlutterPlugin, MethodCallHandler 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     if(call.method.equals("permit-auto-start")){
-      addAutoStartup();
+      addAutoStartup(result);
     } else  if (call.method.equals("isAutoStartPermission")) {
       String manufacturer = android.os.Build.MANUFACTURER;
       if ("xiaomi".equalsIgnoreCase(manufacturer)) {
@@ -60,9 +60,9 @@ public class AutoStartFlutterPlugin implements FlutterPlugin, MethodCallHandler 
       } else if ("letv".equalsIgnoreCase(manufacturer)) {
         result.success(true);
       } else if ("honor".equalsIgnoreCase(manufacturer)) {
-        result.success(true);
+        result.success(false);
       } else if ("huawei".equalsIgnoreCase(manufacturer)) {
-        result.success(true);
+        result.success(false);
       }else if ("samsung".equalsIgnoreCase(manufacturer)) {
         result.success(true);
       }else if ("oneplus".equalsIgnoreCase(manufacturer)) {
@@ -87,7 +87,7 @@ public class AutoStartFlutterPlugin implements FlutterPlugin, MethodCallHandler 
   }
 
 
-  private void addAutoStartup() {
+  private void addAutoStartup(@NonNull Result result) {
     try {
       Intent intent = new Intent();
       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -125,12 +125,13 @@ public class AutoStartFlutterPlugin implements FlutterPlugin, MethodCallHandler 
 
       List<ResolveInfo> list = context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
       if  (list.size() > 0) {
-        Toast.makeText(context, "找到了component", Toast.LENGTH_SHORT).show();
         context.startActivity(intent);
+        result.success(true);
+      } else {
+        result.success(false);
       }
     } catch (Exception e) {
-      Toast.makeText(context, String.valueOf(e), Toast.LENGTH_SHORT).show();
-
+      result.success(false);
       Log.e("exc" , String.valueOf(e));
     }
   }

@@ -16,10 +16,12 @@ Future<bool?> get isAutoStartAvailable async {
 }
 
 ///It navigates to settings => auto-start option where users can manually enable auto-start. It's not possible to check if user has turned on this option or not.
-Future<void> getAutoStartPermission() async {
+Future<bool?> getAutoStartPermission() async {
   try {
-    await _channel.invokeMethod("permit-auto-start");
+    final bool? success = await _channel.invokeMethod("permit-auto-start");
+    return success;
   } catch (e) {
     print(e);
+    return false;
   }
 }
